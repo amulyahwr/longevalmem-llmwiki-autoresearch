@@ -1,0 +1,38 @@
+# Index
+
+- [answer_5328c3c2_1_000_00](atoms/answer_5328c3c2_1_000_00.md) | fact | 2023-03-15 | user's travel plans | The user is planning a trip to Hawaii.
+- [answer_5328c3c2_1_000_01](atoms/answer_5328c3c2_1_000_01.md) | event | 2023-03-15 | user's phone purchase | The user recently purchased a Samsung Galaxy S22 from the Best Buy store at the 
+- [answer_5328c3c2_1_000_02](atoms/answer_5328c3c2_1_000_02.md) | belief | 2023-03-15 | user's satisfaction | The user is loving their new Samsung Galaxy S22.
+- [answer_5328c3c2_1_001_00](atoms/answer_5328c3c2_1_001_00.md) | event | 2023-03-15 | user's travel plan | User is planning a visit to Haleakala National Park on Maui to view the sunrise.
+- [answer_5328c3c2_1_001_01](atoms/answer_5328c3c2_1_001_01.md) | fact | 2023-03-15 | user's phone purchase | User obtained a deal on a new phone saving $100 with a student discount.
+- [answer_5328c3c2_1_001_02](atoms/answer_5328c3c2_1_001_02.md) | event | 2023-03-15 | user's phone trade-in | User traded in an old phone, an iPhone 12, to receive an additional $200 off.
+- [answer_5328c3c2_1_001_03](atoms/answer_5328c3c2_1_001_03.md) | belief | 2023-03-15 | user's photography interest | User is excited to capture great shots with the new phone's camera.
+- [answer_5328c3c2_1_003_00](atoms/answer_5328c3c2_1_003_00.md) | fact | 2023-03-15 | user's interests | User is interested in finding hiking trails on Maui.
+- [answer_5328c3c2_1_003_01](atoms/answer_5328c3c2_1_003_01.md) | fact | 2023-03-15 | user | User is a beginner hiker.
+- [answer_5328c3c2_1_003_02](atoms/answer_5328c3c2_1_003_02.md) | fact | 2023-03-15 | user's technology | User uses a new phone to track fitness goals.
+- [answer_5328c3c2_1_003_03](atoms/answer_5328c3c2_1_003_03.md) | belief | 2023-03-15 | user's desires | User is excited to get exercise while enjoying Maui's natural beauty.
+- [answer_5328c3c2_1_004_00](atoms/answer_5328c3c2_1_004_00.md) | event | 2023-03-15 | user's travel plan | User plans to visit the Road to Hana.
+- [answer_5328c3c2_1_004_01](atoms/answer_5328c3c2_1_004_01.md) | preference | 2023-03-15 | user's travel interests | User is interested in scenic drives, waterfalls, and hiking trails.
+- [answer_5328c3c2_1_005_00](atoms/answer_5328c3c2_1_005_00.md) | event | 2023-03-15 | planning | User is planning to rent a car to drive the Road to Hana.
+- [answer_5328c3c2_1_005_01](atoms/answer_5328c3c2_1_005_01.md) | belief | 2023-03-15 | car rental preference | User is looking for recommendations on car rental companies or tips for renting 
+- [answer_5328c3c2_2_000_00](atoms/answer_5328c3c2_2_000_00.md) | fact | 2023-03-15 | trip planning | User is planning a trip to Hawaii and needs help figuring out power adapters for
+- [answer_5328c3c2_2_000_01](atoms/answer_5328c3c2_2_000_01.md) | fact | 2023-03-15 | laptop | User owns a Dell XPS 13 laptop.
+- [answer_5328c3c2_2_000_02](atoms/answer_5328c3c2_2_000_02.md) | fact | 2023-03-15 | smartphone | User owns a Samsung Galaxy S22 smartphone.
+- [answer_5328c3c2_2_000_03](atoms/answer_5328c3c2_2_000_03.md) | event | 2023-03-15 | order | User pre-ordered the laptop on January 28th.
+- [answer_5328c3c2_2_000_04](atoms/answer_5328c3c2_2_000_04.md) | event | 2023-03-15 | laptop arrival | The Dell XPS 13 laptop arrived on February 25th, delayed from the expected date 
+- [answer_5328c3c2_2_001_00](atoms/answer_5328c3c2_2_001_00.md) | fact | 2023-03-15 | user's plans | The user planned to bring an Anker PowerCore 20000 portable power bank.
+- [answer_5328c3c2_2_001_01](atoms/answer_5328c3c2_2_001_01.md) | event | 2023-03-15 | user's purchase | The user bought the Anker PowerCore 20000 from Amazon on February 13th.
+- [answer_5328c3c2_2_001_02](atoms/answer_5328c3c2_2_001_02.md) | fact | 2023-03-15 | user's phone | The user has a Samsung Galaxy S22.
+- [answer_5328c3c2_2_001_03](atoms/answer_5328c3c2_2_001_03.md) | fact | 2023-03-15 | user's laptop | The user has a Dell XPS 13 laptop.
+- [answer_5328c3c2_2_001_04](atoms/answer_5328c3c2_2_001_04.md) | belief | 2023-03-15 | user's concern | The user is seeking advice on whether the Anker PowerCore 20000 will be enough t
+- [answer_5328c3c2_2_002_00](atoms/answer_5328c3c2_2_002_00.md) | plan | 2023-03-15 | trip | The user is planning to use their devices moderately during a trip.
+- [answer_5328c3c2_2_002_01](atoms/answer_5328c3c2_2_002_01.md) | belief | 2023-03-15 | Anker PowerCore 20000 | The user thinks the Anker PowerCore 20000 should be enough power for the trip.
+- [answer_5328c3c2_2_002_02](atoms/answer_5328c3c2_2_002_02.md) | plan | 2023-03-15 | travel adapter | The user is planning to pack a travel adapter with multiple USB ports to charge 
+- [answer_5328c3c2_2_002_03](atoms/answer_5328c3c2_2_002_03.md) | fact | 2023-03-15 | Belkin Boost Up | The user has a wireless charging pad, the Belkin Boost Up, which they use at hom
+- [answer_5328c3c2_2_002_04](atoms/answer_5328c3c2_2_002_04.md) | belief | 2023-03-15 | packing decision | The user is weighing the benefits of bringing the wireless charging pad against 
+- [answer_5328c3c2_2_003_00](atoms/answer_5328c3c2_2_003_00.md) | fact | 2023-03-15 | user's decision | The user decided to leave the wireless charging pad at home.
+- [answer_5328c3c2_2_003_01](atoms/answer_5328c3c2_2_003_01.md) | preference | 2023-03-15 | user's charging method | The user prefers using cables for a short period of time for charging devices.
+- [answer_5328c3c2_2_003_02](atoms/answer_5328c3c2_2_003_02.md) | event | 2023-03-15 | user's travel plan | The user is planning a trip to Hawaii.
+- [answer_5328c3c2_2_003_03](atoms/answer_5328c3c2_2_003_03.md) | fact | 2023-03-15 | user's request | The user asked for packing essentials for a trip to Hawaii.
+- [answer_5328c3c2_2_005_00](atoms/answer_5328c3c2_2_005_00.md) | event | 2023-03-15 | trip | User is excited for a trip to Hawaii.
+- [answer_5328c3c2_2_005_01](atoms/answer_5328c3c2_2_005_01.md) | belief | 2023-03-15 | packing/preparation | User plans to pack accordingly and stay prepared for any conditions.

@@ -1,0 +1,25 @@
+# Index
+
+- [answer_1c6b85ea_2_000_00](atoms/answer_1c6b85ea_2_000_00.md) | fact | 2023-05-28 | user's project goal | The user is trying to work on a project that involves data analysis.
+- [answer_1c6b85ea_2_000_01](atoms/answer_1c6b85ea_2_000_01.md) | fact | 2023-05-28 | user's learning interest | The user is seeking recommendations for resources to learn data visualization in
+- [answer_1c6b85ea_2_001_00](atoms/answer_1c6b85ea_2_001_00.md) | event | 2023-05-28 | User's activity | User participated in a webinar on "Data Analysis using Python" two months ago.
+- [answer_1c6b85ea_2_001_01](atoms/answer_1c6b85ea_2_001_01.md) | belief | 2023-05-28 | User's interest | User is interested in learning more about data visualization.
+- [answer_1c6b85ea_2_001_02](atoms/answer_1c6b85ea_2_001_02.md) | belief | 2023-05-28 | User's preference | User was considering starting with Matplotlib or Seaborn for creating statistica
+- [answer_1c6b85ea_2_002_00](atoms/answer_1c6b85ea_2_002_00.md) | event | 2023-05-28 | user's action | The user intends to start with Seaborn for data visualization.
+- [answer_1c6b85ea_2_002_01](atoms/answer_1c6b85ea_2_002_01.md) | belief | 2023-05-28 | user's goal | The user is seeking tips on how to effectively communicate insights from data vi
+- [answer_1c6b85ea_2_003_00](atoms/answer_1c6b85ea_2_003_00.md) | fact | 2023-05-28 | user's project | The user is planning to create a dashboard to track key metrics for their projec
+- [answer_1c6b85ea_2_003_01](atoms/answer_1c6b85ea_2_003_01.md) | preference | 2023-05-28 | user's tool_consideration | The user is considering Tableau or Power BI for creating the dashboard.
+- [answer_1c6b85ea_2_004_00](atoms/answer_1c6b85ea_2_004_00.md) | preference | 2023-05-28 | user's focus | The user is more interested in the ease of use and customization options of the 
+- [answer_1c6b85ea_2_004_01](atoms/answer_1c6b85ea_2_004_01.md) | fact | 2023-05-28 | user's background | The user has a Python background.
+- [answer_1c6b85ea_1_000_00](atoms/answer_1c6b85ea_1_000_00.md) | belief | 2023-05-28 | user's goal | The user is trying to get more organized and stay on top of their tasks.
+- [answer_1c6b85ea_1_000_01](atoms/answer_1c6b85ea_1_000_01.md) | preference | 2023-05-28 | user's interest | The user is seeking recommendations for apps or tools to help prioritize tasks a
+- [answer_1c6b85ea_1_001_00](atoms/answer_1c6b85ea_1_001_00.md) | fact | 2023-05-28 | user's productivity efforts | The user has been trying to implement strategies like prioritizing tasks and bre
+- [answer_1c6b85ea_1_001_01](atoms/answer_1c6b85ea_1_001_01.md) | fact | 2023-05-28 | user's work management | Implementing these strategies has been helping the user stay on top of their wor
+- [answer_1c6b85ea_1_002_00](atoms/answer_1c6b85ea_1_002_00.md) | belief | 2023-05-28 | user's focus_strategy_need | User is seeking ways to minimize distractions while working on tasks that requir
+- [answer_1c6b85ea_1_003_00](atoms/answer_1c6b85ea_1_003_00.md) | belief | 2023-05-28 | user's distraction | One of the biggest distractions for the user is social media, especially when wo
+- [answer_1c6b85ea_1_003_01](atoms/answer_1c6b85ea_1_003_01.md) | fact | 2023-05-28 | user's behavior | The user often finds themselves mindlessly scrolling through their social media 
+- [answer_1c6b85ea_1_004_00](atoms/answer_1c6b85ea_1_004_00.md) | event | 2023-05-28 | user's actions | User has been trying to implement strategies like website blockers and schedulin
+- [answer_1c6b85ea_1_004_01](atoms/answer_1c6b85ea_1_004_01.md) | fact | 2023-05-28 | user's phone checking behavior | User still finds themselves checking their phone out of habit sometimes.
+- [answer_1c6b85ea_1_005_00](atoms/answer_1c6b85ea_1_005_00.md) | belief | 2023-05-28 | user's goals | User wants to focus more on learning new skills and expanding knowledge in diffe
+- [answer_1c6b85ea_1_005_01](atoms/answer_1c6b85ea_1_005_01.md) | event | 2023-05-28 | workshop attendance | User attended a workshop on "Effective Time Management" at the local community c
+- [answer_1c6b85ea_1_005_02](atoms/answer_1c6b85ea_1_005_02.md) | preference | 2023-05-28 | learning methods | User finds attending workshops and lectures really helpful.
