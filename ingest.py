@@ -26,25 +26,49 @@ DATASET_FILES = {
 
 PAIR_INGEST_SYSTEM = """\
 You are a memory extraction agent. Read ONE user-assistant exchange and extract \
-all durable facts, preferences, events, and beliefs the USER revealed about themselves.
+all durable, personalized facts, preferences, events, and beliefs — from BOTH the user and the assistant.
 
 You have tools to inspect the existing wiki before extracting:
   search_atoms(query)  — search atom contents for a keyword; returns matching atom_ids + snippets
   read_atom(atom_id)   — read a specific atom's full content
   list_subjects()      — show all current subject → atom_id mappings
 
+Two categories of atoms to extract:
+
+1. USER-sourced (source: "user"):
+   - Facts, events, or beliefs the user explicitly states about themselves.
+   - Preferences the user expresses explicitly OR implicitly (e.g., the user follows up on a specific
+     option, says "I'll try that", or accepts one recommendation over others — extract as a preference).
+
+2. ASSISTANT-sourced (source: "assistant"):
+   - Personalized information the assistant provides specifically for this user:
+     itineraries, schedules, or plans it created; account/flight/booking details it looked up;
+     recommendations it gave that the user acknowledged or accepted.
+   - Do NOT extract general explanations, how-to advice, or facts that apply to anyone.
+
 Rules for each atom:
   - Each atom must be a single self-contained statement about the user.
-  - Only extract user-specific information — not general knowledge from the assistant.
   - content    : a single self-contained statement about the user
   - kind       : one of fact, preference, event, belief
-  - subject    : canonical "user's <noun>" — most general term (e.g. "user's location")
+  - subject    : canonical "user's <noun>" — see subject rules below
+  - source     : "user" or "assistant"
   - supersedes : atom_id this replaces, or null
+
+Subject naming rules:
+  - User atoms: use the most general term that still uniquely identifies the topic
+    (e.g. "user's location", "user's job").
+  - Assistant atoms: use a SPECIFIC subject that will not collide with a user-stated atom
+    on the same broad topic (e.g. "user's flight itinerary" not "user's travel",
+    "user's clinic appointment" not "user's location").
+  - Before assigning a subject, call list_subjects() to check existing subjects.
+    If an existing subject is a user-sourced atom and the new atom is assistant-sourced
+    (or vice versa) and they are NOT contradictory updates, use a more specific subject
+    rather than claiming the same key — claiming the same subject triggers supersession.
 
 If nothing is worth extracting, output: {"atoms": []}
 
 Output ONLY the JSON object — no code fences, no commentary.
-Output exactly: {"atoms": [{"content": "...", "kind": "...", "subject": "...", "supersedes": null}, ...]}\
+Output exactly: {"atoms": [{"content": "...", "kind": "...", "subject": "...", "source": "user", "supersedes": null}, ...]}\
 """
 
 _INGEST_AGENT = Agent(
@@ -96,10 +120,10 @@ async def ingest_turn_pair(
         if atom.subject:
             old_id = wiki.register_subject(atom.subject, atom_id)
             if old_id:
-                wiki.mark_superseded(old_id, superseded_by=atom_id)
+                wiki.mark_superseded(old_id, superseded_by=atom_id, valid_until=valid_from)
                 supersedes = old_id
         elif atom.supersedes:
-            wiki.mark_superseded(atom.supersedes, superseded_by=atom_id)
+            wiki.mark_superseded(atom.supersedes, superseded_by=atom_id, valid_until=valid_from)
 
         wiki.write_atom(
             atom_id=atom_id,
@@ -108,6 +132,7 @@ async def ingest_turn_pair(
             valid_from=valid_from,
             subject=atom.subject,
             supersedes=supersedes,
+            source=atom.source,
         )
         wiki.update_word_index(atom_id, atom.content)
         wiki.update_index(

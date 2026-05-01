@@ -98,12 +98,14 @@ class WikiDB:
         valid_from: datetime,
         subject: str = "",
         supersedes: str | None = None,
+        source: str = "user",
     ) -> None:
         self._ensure()
         text = (
             f"---\n"
             f"atom_id: {atom_id}\n"
             f"kind: {kind}\n"
+            f"source: {source}\n"
             f"subject: {subject}\n"
             f"valid_from: {valid_from.isoformat()}\n"
             f"valid_until: null\n"
@@ -115,13 +117,15 @@ class WikiDB:
         )
         (self.atoms_dir / f"{atom_id}.md").write_text(text)
 
-    def mark_superseded(self, atom_id: str, superseded_by: str) -> None:
+    def mark_superseded(self, atom_id: str, superseded_by: str, valid_until: datetime | None = None) -> None:
         path = self.atoms_dir / f"{atom_id}.md"
         if not path.exists():
             return
         text = path.read_text()
         text = re.sub(r"^is_superseded: false$", "is_superseded: true", text, flags=re.MULTILINE)
         text = re.sub(r"^superseded_by: null$", f"superseded_by: {superseded_by}", text, flags=re.MULTILINE)
+        if valid_until is not None:
+            text = re.sub(r"^valid_until: null$", f"valid_until: {valid_until.isoformat()}", text, flags=re.MULTILINE)
         path.write_text(text)
 
     def update_index(self, atom_id: str, summary: str, kind: str, valid_from: datetime, subject: str = "") -> None:

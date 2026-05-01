@@ -8,6 +8,7 @@ class ExtractedAtom(BaseModel):
     content: str
     kind: str     # "fact" | "preference" | "event" | "belief"
     subject: str  # short noun phrase identifying the topic, e.g. "user's location"
+    source: str = "user"  # "user" | "assistant"
     supersedes: str | None = None  # atom_id this contradicts/updates (LLM fallback)
 
 
