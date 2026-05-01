@@ -70,25 +70,41 @@ Karpathy's autonomous AI research agent. An agent is given a training codebase (
 ## Setup
 
 ```bash
-# Clone with submodules
-git clone --recurse-submodules https://github.com/amulyahwr/longevalmem-llmwiki-autoresearch
+# Clone the repo
+git clone https://github.com/amulyahwr/longevalmem-llmwiki-autoresearch
 cd longevalmem-llmwiki-autoresearch
 
-# Install dependencies
-pip install -r requirements.txt   # or: uv sync
+# Create and activate a virtual environment
+uv venv .venv
+source .venv/bin/activate
 
-# Download LongMemEval data
+# Install dependencies
+uv pip install -e ".[dev]"
+```
+
+Download the LongMemEval dataset from Hugging Face and place it under `LongMemEval/data/`:
+
+```bash
 mkdir -p LongMemEval/data && cd LongMemEval/data
 wget https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_oracle.json
 wget https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_s_cleaned.json
 cd ../..
 ```
 
-Set your API key:
+### LM Studio configuration
+
+This project uses a **local LLM served via [LM Studio](https://lmstudio.ai/)** through its OpenAI-compatible API. Start LM Studio, load your model, and enable the local server (default: `http://localhost:1234`).
+
+Configure via environment variables or a `.env` file at the project root:
 
 ```bash
-export ANTHROPIC_API_KEY=your_key_here
+# .env
+LM_STUDIO_BASE_URL=http://localhost:1234/v1   # default
+LM_STUDIO_MODEL=google/gemma-4-e4b           # match the model loaded in LM Studio
+LM_STUDIO_TIMEOUT=120.0                       # seconds, increase for slower hardware
 ```
+
+No API key is required — LM Studio uses `"lm-studio"` as a placeholder.
 
 ---
 
