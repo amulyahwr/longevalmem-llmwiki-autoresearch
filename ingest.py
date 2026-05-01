@@ -8,12 +8,8 @@ atoms — so superseding and deduplication are content-aware, not subject-name-d
 import asyncio
 import argparse
 import json
-import sys
 from datetime import datetime, timezone
 from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from agents import Agent, Runner
 from db import WikiDB
@@ -165,6 +161,6 @@ if __name__ == "__main__":
     parser.add_argument(
         "--dataset", default="oracle", choices=list(DATASET_FILES.keys())
     )
-    parser.add_argument("--data_dir", default="eval/LongMemEval/data")
+    parser.add_argument("--data_dir", default="LongMemEval/data")
     parser.add_argument("--limit", type=int, default=None)
     asyncio.run(main(parser.parse_args()))

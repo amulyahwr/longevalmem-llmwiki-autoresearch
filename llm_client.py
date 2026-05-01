@@ -1,19 +1,28 @@
-"""LM Studio client for harness-agent."""
+"""LM Studio client for the llmwiki eval harness."""
 
 from __future__ import annotations
 
 import re
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from openai import AsyncOpenAI
 from agents.models.openai_responses import OpenAIResponsesModel
 from agents import ModelSettings
 from agents.model_settings import Reasoning
+from pydantic_settings import BaseSettings
 
-from backend.config import settings
+
+class _Settings(BaseSettings):
+    lm_studio_base_url: str = "http://localhost:1234/v1"
+    lm_studio_model: str = "google/gemma-4-e4b"
+    lm_studio_timeout: float = 120.0
+
+    class Config:
+        env_prefix = "LM_STUDIO_"
+        env_file = ".env"
+        extra = "ignore"
+
+
+settings = _Settings()
 
 _client = AsyncOpenAI(
     base_url=settings.lm_studio_base_url,

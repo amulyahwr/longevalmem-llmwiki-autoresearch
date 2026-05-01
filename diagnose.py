@@ -1,14 +1,14 @@
-"""Diagnostic runner for the agent harness: full pipeline on a single question.
+"""Diagnostic runner: full pipeline on a single question.
 
 Shows wiki state after each ingest and final hypothesis vs ground truth.
 LLM internals (tool calls, reasoning, token counts) are visible in MLflow UI:
     mlflow server --port 5001
-    open http://localhost:5001 → experiment 'harness-agent' → Traces tab
+    open http://localhost:5001 → experiment 'llmwiki-eval' → Traces tab
 
 Usage:
-    python eval/harness-agent/diagnose.py                       # first oracle question
-    python eval/harness-agent/diagnose.py --index 4
-    python eval/harness-agent/diagnose.py --question_id <id>
+    python diagnose.py                       # first oracle question
+    python diagnose.py --index 4
+    python diagnose.py --question_id <id>
 """
 import argparse
 import asyncio
@@ -16,13 +16,10 @@ import json
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-
 import mlflow
 
 mlflow.set_tracking_uri("http://localhost:5001")
-mlflow.set_experiment("harness-agent")
+mlflow.set_experiment("llmwiki-eval")
 mlflow.openai.autolog()
 
 # ── ANSI colour helpers ────────────────────────────────────────────────────────
@@ -123,7 +120,7 @@ async def main(args: argparse.Namespace) -> None:
     print(f"  hypothesis:   {_c(_BOLD + _YELLOW, hypothesis)}")
     print(f"  ground truth: {_c(_BOLD + _GREEN, q['answer'])}")
     _hr("#")
-    print(_c(_DIM, "Traces at: http://localhost:5001 → experiment 'harness-agent' → Traces tab"))
+    print(_c(_DIM, "Traces at: http://localhost:5001 → experiment 'llmwiki-eval' → Traces tab"))
 
 
 if __name__ == "__main__":
@@ -131,7 +128,7 @@ if __name__ == "__main__":
         description="Diagnose the agent eval pipeline on a single LongMemEval question."
     )
     parser.add_argument("--dataset", default="oracle", choices=list(DATASET_FILES.keys()))
-    parser.add_argument("--data_dir", default="eval/LongMemEval/data")
+    parser.add_argument("--data_dir", default="LongMemEval/data")
     parser.add_argument("--index", type=int, default=0)
     parser.add_argument("--question_id", type=str, default=None)
     asyncio.run(main(parser.parse_args()))

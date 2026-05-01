@@ -1,21 +1,15 @@
-"""Evaluate the agent-based wiki context provider on LongMemEval.
-
-Same interface as harness/run_eval.py — drop-in replacement for comparison.
+"""Evaluate the LLM-Wiki agent pipeline on LongMemEval.
 
 Usage:
-    python eval/harness-agent/run_eval.py --dataset oracle --limit 5
-    python eval/harness-agent/run_eval.py --dataset oracle
-    python eval/harness-agent/run_eval.py --dataset s --concurrency 3
+    python run_eval.py --dataset oracle --limit 5
+    python run_eval.py --dataset oracle
+    python run_eval.py --dataset s --concurrency 3
 """
 import argparse
 import asyncio
 import json
-import sys
 from collections import defaultdict
 from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import mlflow
 from tqdm import tqdm
@@ -93,7 +87,7 @@ def _print_summary(results: list[dict]) -> None:
 
 async def main(args: argparse.Namespace) -> None:
     mlflow.set_tracking_uri("http://localhost:5001")
-    mlflow.set_experiment(f"harness-agent-{args.dataset}")
+    mlflow.set_experiment(f"llmwiki-eval-{args.dataset}")
     mlflow.openai.autolog()
 
     data_file = Path(args.data_dir) / DATASET_FILES[args.dataset]
@@ -118,7 +112,7 @@ async def main(args: argparse.Namespace) -> None:
 
     pending = [q for q in questions if q["question_id"] not in done_ids]
     print(f"Processing {len(pending)} questions with concurrency={args.concurrency}...")
-    print(f"Traces: http://localhost:5001 → experiment 'harness-agent-{args.dataset}'")
+    print(f"Traces: http://localhost:5001 → experiment 'llmwiki-eval-{args.dataset}'")
 
     sem = asyncio.Semaphore(args.concurrency)
     write_lock = asyncio.Lock()
@@ -133,19 +127,19 @@ async def main(args: argparse.Namespace) -> None:
     _print_summary(results)
     print(f"\nOutput written to: {out_path}")
     print(f"\nTo score QA accuracy:")
-    print(f"  cd eval/LongMemEval/src/evaluation")
-    print(f"  python3 evaluate_qa.py gpt-4o ../../../../{out_path} ../../data/{DATASET_FILES[args.dataset]}")
+    print(f"  cd LongMemEval/src/evaluation")
+    print(f"  python3 evaluate_qa.py gpt-4o ../../../{out_path} ../../data/{DATASET_FILES[args.dataset]}")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Evaluate agent-based wiki on LongMemEval.")
     parser.add_argument("--dataset", default="oracle", choices=list(DATASET_FILES.keys()))
-    parser.add_argument("--data_dir", default="eval/LongMemEval/data")
+    parser.add_argument("--data_dir", default="LongMemEval/data")
     parser.add_argument("--out_file", default=None)
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--concurrency", type=int, default=2)
     parser.add_argument("--resume", action=argparse.BooleanOptionalAction, default=True)
     args = parser.parse_args()
     if args.out_file is None:
-        args.out_file = f"eval/harness-agent/results/{args.dataset}_predictions.jsonl"
+        args.out_file = f"results/{args.dataset}_predictions.jsonl"
     asyncio.run(main(args))

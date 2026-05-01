@@ -1,0 +1,29 @@
+[project]
+name = "longevalmem-llmwiki-autoresearch"
+version = "0.1.0"
+description = "LLM-Wiki memory harness evaluated on LongMemEval."
+requires-python = ">=3.11"
+
+dependencies = [
+    "openai>=1.0.0",
+    "openai-agents>=0.0.19",
+    "pydantic-settings>=2.0.0",
+    "tiktoken>=0.7.0",
+    "tqdm>=4.0.0",
+    "mlflow>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.8",
+]
+
+[tool.setuptools]
+py-modules = ["answer_generator", "db", "diagnose", "ingest", "llm_client", "models", "run_eval", "selection", "session_formatter", "synthesis", "tools"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
