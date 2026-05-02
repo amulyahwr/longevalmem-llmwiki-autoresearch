@@ -127,8 +127,7 @@ async def main(args: argparse.Namespace) -> None:
     _print_summary(results)
     print(f"\nOutput written to: {out_path}")
     print(f"\nTo score QA accuracy:")
-    print(f"  cd LongMemEval/src/evaluation")
-    print(f"  python3 evaluate_qa.py gpt-4o ../../../{out_path} ../../data/{DATASET_FILES[args.dataset]}")
+    print(f"  python3 eval/evaluate_qa.py gpt-4o {out_path} LongMemEval/data/{DATASET_FILES[args.dataset]}")
 
 
 if __name__ == "__main__":

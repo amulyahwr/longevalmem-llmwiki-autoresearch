@@ -117,31 +117,32 @@ async def ingest_turn_pair(
         atom_id = f"{pair_id}_{j:02d}"
         supersedes = atom.supersedes
 
-        if atom.subject:
-            old_id = wiki.register_subject(atom.subject, atom_id)
-            if old_id:
-                wiki.mark_superseded(old_id, superseded_by=atom_id, valid_until=valid_from)
-                supersedes = old_id
-        elif atom.supersedes:
-            wiki.mark_superseded(atom.supersedes, superseded_by=atom_id, valid_until=valid_from)
+        async with wiki.write_lock:
+            if atom.subject:
+                old_id = wiki.register_subject(atom.subject, atom_id)
+                if old_id:
+                    wiki.mark_superseded(old_id, superseded_by=atom_id, valid_until=valid_from)
+                    supersedes = old_id
+            elif atom.supersedes:
+                wiki.mark_superseded(atom.supersedes, superseded_by=atom_id, valid_until=valid_from)
 
-        wiki.write_atom(
-            atom_id=atom_id,
-            content=atom.content,
-            kind=atom.kind,
-            valid_from=valid_from,
-            subject=atom.subject,
-            supersedes=supersedes,
-            source=atom.source,
-        )
-        wiki.update_word_index(atom_id, atom.content)
-        wiki.update_index(
-            atom_id,
-            atom.content[:80].replace("\n", " "),
-            atom.kind,
-            valid_from,
-            subject=atom.subject,
-        )
+            wiki.write_atom(
+                atom_id=atom_id,
+                content=atom.content,
+                kind=atom.kind,
+                valid_from=valid_from,
+                subject=atom.subject,
+                supersedes=supersedes,
+                source=atom.source,
+            )
+            wiki.update_word_index(atom_id, atom.content)
+            wiki.update_index(
+                atom_id,
+                atom.content[:80].replace("\n", " "),
+                atom.kind,
+                valid_from,
+                subject=atom.subject,
+            )
     return len(atoms)
 
 

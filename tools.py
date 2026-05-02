@@ -88,5 +88,5 @@ def list_all_atoms(ctx: RunContextWrapper[WikiDB]) -> str:
 
 
 INGEST_TOOLS = [search_atoms, read_atom, list_subjects]
-SELECTION_TOOLS = [search_atoms, read_atom, list_all_atoms]
+SELECTION_TOOLS = [search_atoms, read_atom, list_subjects, list_all_atoms]
 SYNTHESIS_TOOLS = [read_atom]

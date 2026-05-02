@@ -1,6 +1,6 @@
 # LongMemEval — LLM-Wiki Memory Harness
 
-An evaluation harness that benchmarks the **LLM-Wiki** memory pattern against [LongMemEval](https://github.com/xiaowu0162/LongMemEval), a rigorous benchmark for long-term memory in chat assistants.
+An evaluation harness that benchmarks the **[LLM-Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)** memory pattern against [LongMemEval](https://github.com/xiaowu0162/LongMemEval), a rigorous benchmark for long-term memory in chat assistants.
 
 ---
 
@@ -35,15 +35,15 @@ LongMemEval sessions
 
 ### Key files
 
-| File | Role |
-|------|------|
-| `ingest.py` | Ingest agent: LongMemEval sessions → wiki atoms |
-| `db.py` | WikiDB: atom CRUD, subject/word index, log |
-| `selection.py` | Selection agent: question → relevant atom_ids |
-| `synthesis.py` | Synthesis agent: atoms + question → answer |
-| `answer_generator.py` | Orchestrates selection → as_of filter → synthesis |
-| `run_eval.py` | Full eval loop over LongMemEval with concurrency + MLflow tracing |
-| `models.py` | Pydantic models for all LLM calls |
+| File                  | Role                                                              |
+| --------------------- | ----------------------------------------------------------------- |
+| `ingest.py`           | Ingest agent: LongMemEval sessions → wiki atoms                   |
+| `db.py`               | WikiDB: atom CRUD, subject/word index, log                        |
+| `selection.py`        | Selection agent: question → relevant atom_ids                     |
+| `synthesis.py`        | Synthesis agent: atoms + question → answer                        |
+| `answer_generator.py` | Orchestrates selection → as_of filter → synthesis                 |
+| `run_eval.py`         | Full eval loop over LongMemEval with concurrency + MLflow tracing |
+| `models.py`           | Pydantic models for all LLM calls                                 |
 
 ---
 
@@ -124,9 +124,8 @@ python run_eval.py --dataset s --concurrency 2
 Results are written to `results/<dataset>_predictions.jsonl`. To score:
 
 ```bash
-cd LongMemEval/src/evaluation
-python3 evaluate_qa.py gpt-4o ../../../results/oracle_predictions.jsonl \
-    ../../data/longmemeval_oracle.json
+python3 eval/evaluate_qa.py gpt-4o results/oracle_predictions.jsonl \
+    LongMemEval/data/longmemeval_oracle.json
 ```
 
 MLflow traces are available at `http://localhost:5001` (start with `mlflow ui --port 5001`).

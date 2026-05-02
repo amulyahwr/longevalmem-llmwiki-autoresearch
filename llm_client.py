@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import re
 
 from openai import AsyncOpenAI
@@ -13,7 +14,7 @@ from pydantic_settings import BaseSettings
 
 class _Settings(BaseSettings):
     lm_studio_base_url: str = "http://localhost:1234/v1"
-    lm_studio_model: str = "google/gemma-4-e4b"
+    lm_studio_model: str = "google/gemma-4-e2b"
     lm_studio_timeout: float = 120.0
 
     class Config:
@@ -23,6 +24,10 @@ class _Settings(BaseSettings):
 
 
 settings = _Settings()
+
+# The openai-agents SDK checks os.environ for OPENAI_API_KEY at import time.
+# LM Studio doesn't need a real key; set a placeholder so the SDK doesn't warn.
+os.environ.setdefault("OPENAI_API_KEY", "lm-studio")
 
 _client = AsyncOpenAI(
     base_url=settings.lm_studio_base_url,
@@ -37,7 +42,7 @@ def get_model() -> OpenAIResponsesModel:
 
 def get_model_settings(reasoning: bool = False) -> ModelSettings:
     return ModelSettings(
-        # temperature=0.1,
+        temperature=0.0,
         reasoning=Reasoning(effort="medium" if reasoning else "none"),
     )
 

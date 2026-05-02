@@ -51,9 +51,15 @@ async def generate(question: str, wiki: WikiDB, as_of: str | None = None) -> str
     # Step 1: selection agent finds relevant atom_ids
     selection = await select(question, wiki, as_of=as_of_norm)
 
+    atom_ids = selection.relevant_atom_ids
+    if not atom_ids:
+        # Fallback: selection found nothing; sweep all atoms and let synthesis decide.
+        atom_ids = wiki.list_atoms()
+        wiki.append_log("selection_fallback", f"question={question[:80]!r}")
+
     # Step 2: read atoms, apply as_of filter in code (deterministic)
     atom_texts: list[str] = []
-    for atom_id in selection.relevant_atom_ids[:_MAX_ATOMS]:
+    for atom_id in atom_ids[:_MAX_ATOMS]:
         content = wiki.read_atom(atom_id)
         if not content:
             continue

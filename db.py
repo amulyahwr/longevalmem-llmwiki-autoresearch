@@ -10,11 +10,14 @@ Each WikiDB instance owns an isolated directory:
 Passing a WikiDB instance through the call chain makes concurrent
 per-question wikis safe — no shared global state.
 """
+import asyncio
 import json
 import re
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
+
+_WIKI_LOCKS: dict[str, asyncio.Lock] = {}
 
 
 class WikiDB:
@@ -23,6 +26,13 @@ class WikiDB:
         self.index_file = self.wiki_dir / "index.md"
         self.log_file = self.wiki_dir / "log.md"
         self.atoms_dir = self.wiki_dir / "atoms"
+
+    @property
+    def write_lock(self) -> asyncio.Lock:
+        key = str(self.wiki_dir.resolve())
+        if key not in _WIKI_LOCKS:
+            _WIKI_LOCKS[key] = asyncio.Lock()
+        return _WIKI_LOCKS[key]
 
     def _ensure(self) -> None:
         self.atoms_dir.mkdir(parents=True, exist_ok=True)
