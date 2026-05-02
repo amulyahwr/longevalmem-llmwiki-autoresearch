@@ -13,11 +13,11 @@ CONCURRENCY = 20
 model_zoo = {
     "gpt-4o-mini": ("gpt-4o-mini-2024-07-18", "openai"),
     "gpt-4o": ("gpt-4o-2024-08-06", "openai"),
-    "gemma-4-e2b": ("google/gemma-4-e2b", "local"),  # LM Studio — generation
-    "nemotron-nano-4b": (
-        "nvidia/nemotron-3-nano-4b",
+    "gemma-4-e2b": ("google/gemma-4-e2b", "local"),  # Ollama — generation
+    "deepseek-r1-7b": (
+        "deepseek-r1:7b-4k",
         "local",
-    ),  # LM Studio — evaluation
+    ),  # Ollama — evaluation
 }
 
 
@@ -108,8 +108,8 @@ async def main() -> None:
         openai_api_key = os.getenv("OPENAI_API_KEY")
         openai_api_base = None
     else:
-        openai_api_key = "lm-studio"  # LM Studio accepts any non-empty key
-        openai_api_base = os.getenv("LMSTUDIO_BASE_URL", "http://localhost:1234/v1")
+        openai_api_key = "ollama"
+        openai_api_base = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434/v1")
 
     metric_client = AsyncOpenAI(
         api_key=openai_api_key,

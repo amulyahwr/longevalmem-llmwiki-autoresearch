@@ -13,18 +13,18 @@ uv venv .venv && source .venv/bin/activate
 uv pip install -e ".[dev]"
 ```
 
-Copy `.env.example` to `.env` (or set env vars):
+Set env vars in `.env`:
 ```
-LM_STUDIO_BASE_URL=http://localhost:1234/v1
-LM_STUDIO_MODEL=google/gemma-4-e4b
-LM_STUDIO_TIMEOUT=120.0
+OLLAMA_BASE_URL=http://localhost:11434/v1
+OLLAMA_MODEL=<ollama-model-tag>
+OLLAMA_TIMEOUT=120.0
 ```
 
-Start LM Studio, load a model, and enable the local server on port 1234.
+Start Ollama: `ollama serve &` then pull your model: `ollama pull <model>`.
 
 Download benchmark data:
 ```bash
-mkdir -p LongMemEval/data && cd LongMemEval/data
+mkdir -p eval/longmemeval/data && cd eval/longmemeval/data
 wget https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_oracle.json
 wget https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_s_cleaned.json
 ```
@@ -48,13 +48,13 @@ python diagnose.py --question_id <question_id>
 
 Score results:
 ```bash
-python3 eval/evaluate_qa.py gpt-4o results/oracle_predictions.jsonl \
-    LongMemEval/data/longmemeval_oracle.json
+python3 eval/longmemeval/evaluate_qa.py gpt-4o results/oracle_predictions.jsonl \
+    eval/longmemeval/data/longmemeval_oracle.json
 ```
 
 Monitor traces:
 ```bash
-mlflow ui --port 5001  # → http://localhost:5001, experiment 'llmwiki-eval-<dataset>'
+mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5001  # → http://localhost:5001
 ```
 
 ## Linting / Tests

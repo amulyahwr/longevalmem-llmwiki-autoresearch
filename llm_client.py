@@ -1,4 +1,4 @@
-"""LM Studio client for the llmwiki eval harness."""
+"""Ollama client for the llmwiki eval harness."""
 
 from __future__ import annotations
 
@@ -13,12 +13,12 @@ from pydantic_settings import BaseSettings
 
 
 class _Settings(BaseSettings):
-    lm_studio_base_url: str = "http://localhost:1234/v1"
-    lm_studio_model: str = "google/gemma-4-e2b"
-    lm_studio_timeout: float = 120.0
+    ollama_base_url: str = "http://localhost:11434/v1"
+    ollama_model: str = "gemma4:e2b"
+    ollama_timeout: float = 120.0
 
     class Config:
-        env_prefix = "LM_STUDIO_"
+        env_prefix = "OLLAMA_"
         env_file = ".env"
         extra = "ignore"
 
@@ -26,18 +26,18 @@ class _Settings(BaseSettings):
 settings = _Settings()
 
 # The openai-agents SDK checks os.environ for OPENAI_API_KEY at import time.
-# LM Studio doesn't need a real key; set a placeholder so the SDK doesn't warn.
-os.environ.setdefault("OPENAI_API_KEY", "lm-studio")
+# Ollama doesn't need a real key; set a placeholder so the SDK doesn't warn.
+os.environ.setdefault("OPENAI_API_KEY", "ollama")
 
 _client = AsyncOpenAI(
-    base_url=settings.lm_studio_base_url,
-    api_key="lm-studio",
-    timeout=settings.lm_studio_timeout,
+    base_url=settings.ollama_base_url,
+    api_key="ollama",
+    timeout=settings.ollama_timeout,
 )
 
 
 def get_model() -> OpenAIResponsesModel:
-    return OpenAIResponsesModel(model=settings.lm_studio_model, openai_client=_client)
+    return OpenAIResponsesModel(model=settings.ollama_model, openai_client=_client)
 
 
 def get_model_settings(reasoning: bool = False) -> ModelSettings:

@@ -187,6 +187,6 @@ if __name__ == "__main__":
     parser.add_argument(
         "--dataset", default="oracle", choices=list(DATASET_FILES.keys())
     )
-    parser.add_argument("--data_dir", default="LongMemEval/data")
+    parser.add_argument("--data_dir", default="eval/longmemeval/data")
     parser.add_argument("--limit", type=int, default=None)
     asyncio.run(main(parser.parse_args()))

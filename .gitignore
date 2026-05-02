@@ -1,0 +1,10 @@
+.claude/
+results/
+wiki/
+CONTEXT_BUDGET.md
+LLM-WIKI.md
+__pycache__/
+*.pyc
+.env
+*.egg-info
+eval/longmemeval/data/*

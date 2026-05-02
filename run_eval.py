@@ -86,7 +86,8 @@ def _print_summary(results: list[dict]) -> None:
 
 
 async def main(args: argparse.Namespace) -> None:
-    mlflow.set_tracking_uri("http://localhost:5001")
+    _db = Path(__file__).parent / "mlflow.db"
+    mlflow.set_tracking_uri(f"sqlite:///{_db}")
     mlflow.set_experiment(f"llmwiki-eval-{args.dataset}")
     mlflow.openai.autolog()
 
@@ -112,7 +113,7 @@ async def main(args: argparse.Namespace) -> None:
 
     pending = [q for q in questions if q["question_id"] not in done_ids]
     print(f"Processing {len(pending)} questions with concurrency={args.concurrency}...")
-    print(f"Traces: http://localhost:5001 → experiment 'llmwiki-eval-{args.dataset}'")
+    print(f"Traces: mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5001 → experiment 'llmwiki-eval-{args.dataset}'")
 
     sem = asyncio.Semaphore(args.concurrency)
     write_lock = asyncio.Lock()
@@ -127,13 +128,13 @@ async def main(args: argparse.Namespace) -> None:
     _print_summary(results)
     print(f"\nOutput written to: {out_path}")
     print(f"\nTo score QA accuracy:")
-    print(f"  python3 eval/evaluate_qa.py gpt-4o {out_path} LongMemEval/data/{DATASET_FILES[args.dataset]}")
+    print(f"  python3 eval/longmemeval/evaluate_qa.py gpt-4o {out_path} eval/longmemeval/data/{DATASET_FILES[args.dataset]}")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Evaluate agent-based wiki on LongMemEval.")
     parser.add_argument("--dataset", default="oracle", choices=list(DATASET_FILES.keys()))
-    parser.add_argument("--data_dir", default="LongMemEval/data")
+    parser.add_argument("--data_dir", default="eval/longmemeval/data")
     parser.add_argument("--out_file", default=None)
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--concurrency", type=int, default=2)

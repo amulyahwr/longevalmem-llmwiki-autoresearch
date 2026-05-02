@@ -82,29 +82,29 @@ source .venv/bin/activate
 uv pip install -e ".[dev]"
 ```
 
-Download the LongMemEval dataset from Hugging Face and place it under `LongMemEval/data/`:
+Download the LongMemEval dataset from Hugging Face and place it under `eval/longmemeval/data/`:
 
 ```bash
-mkdir -p LongMemEval/data && cd LongMemEval/data
+mkdir -p eval/longmemeval/data && cd eval/longmemeval/data
 wget https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_oracle.json
 wget https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_s_cleaned.json
-cd ../..
+cd ../../..
 ```
 
-### LM Studio configuration
+### Ollama configuration
 
-This project uses a **local LLM served via [LM Studio](https://lmstudio.ai/)** through its OpenAI-compatible API. Start LM Studio, load your model, and enable the local server (default: `http://localhost:1234`).
+This project uses a **local LLM served via [Ollama](https://ollama.com/)** through its OpenAI-compatible API. Start Ollama with `ollama serve` and pull your model with `ollama pull <model>`.
 
 Configure via environment variables or a `.env` file at the project root:
 
 ```bash
 # .env
-LM_STUDIO_BASE_URL=http://localhost:1234/v1   # default
-LM_STUDIO_MODEL=google/gemma-4-e4b           # match the model loaded in LM Studio
-LM_STUDIO_TIMEOUT=120.0                       # seconds, increase for slower hardware
+OLLAMA_BASE_URL=http://localhost:11434/v1   # default
+OLLAMA_MODEL=<ollama-model-tag>             # match the model you pulled
+OLLAMA_TIMEOUT=120.0                        # seconds, increase for slower hardware
 ```
 
-No API key is required — LM Studio uses `"lm-studio"` as a placeholder.
+No API key is required — Ollama uses `"ollama"` as a placeholder.
 
 ---
 
@@ -124,8 +124,8 @@ python run_eval.py --dataset s --concurrency 2
 Results are written to `results/<dataset>_predictions.jsonl`. To score:
 
 ```bash
-python3 eval/evaluate_qa.py gpt-4o results/oracle_predictions.jsonl \
-    LongMemEval/data/longmemeval_oracle.json
+python3 eval/longmemeval/evaluate_qa.py gpt-4o results/oracle_predictions.jsonl \
+    eval/longmemeval/data/longmemeval_oracle.json
 ```
 
 MLflow traces are available at `http://localhost:5001` (start with `mlflow ui --port 5001`).

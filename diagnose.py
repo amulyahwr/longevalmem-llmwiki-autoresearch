@@ -2,7 +2,7 @@
 
 Shows wiki state after each ingest and final hypothesis vs ground truth.
 LLM internals (tool calls, reasoning, token counts) are visible in MLflow UI:
-    mlflow server --port 5001
+    mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5001
     open http://localhost:5001 → experiment 'llmwiki-eval' → Traces tab
 
 Usage:
@@ -18,7 +18,8 @@ from pathlib import Path
 
 import mlflow
 
-mlflow.set_tracking_uri("http://localhost:5001")
+_DB = Path(__file__).parent / "mlflow.db"
+mlflow.set_tracking_uri(f"sqlite:///{_DB}")
 mlflow.set_experiment("llmwiki-eval")
 mlflow.openai.autolog()
 
@@ -128,7 +129,7 @@ if __name__ == "__main__":
         description="Diagnose the agent eval pipeline on a single LongMemEval question."
     )
     parser.add_argument("--dataset", default="oracle", choices=list(DATASET_FILES.keys()))
-    parser.add_argument("--data_dir", default="LongMemEval/data")
+    parser.add_argument("--data_dir", default="eval/longmemeval/data")
     parser.add_argument("--index", type=int, default=0)
     parser.add_argument("--question_id", type=str, default=None)
     asyncio.run(main(parser.parse_args()))
